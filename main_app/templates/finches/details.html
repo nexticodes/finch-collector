@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Now looking at {{finch.name}}</h1>
-<p> Age: {{finch.age}} </p>
-<p> Breed: {{finch.breed}} </p>
-<p> Description: {{finch.description}} </p>
+<h1>Cat Details</h1>
+
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ finch.name }}</span>
+        <p>Breed: {{ finch.breed }}</p>
+        <p>Description: {{ finch.description }}</p>
+        {% if finch.age > 0 %}
+          <p>Age: {{ finch.age }}</p>
+        {% else %}
+          <p>Age: Little Finchy Birdy</p>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a href="{% url 'finches_update' finch.id %}">Edit</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
