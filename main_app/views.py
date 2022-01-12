@@ -26,3 +26,7 @@ class FinchCreate(CreateView):
 class FinchUpdate(UpdateView):
     model = Finch
     fields = ['breed', 'description', 'age']
+
+class FinchDelete(DeleteView):
+    model = Finch
+    success_url = '/finches/'
