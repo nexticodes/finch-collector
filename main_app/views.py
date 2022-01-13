@@ -17,9 +17,11 @@ def finches_index(request):
 def finches_details(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
     feeding_form = FeedingForm()
+    unowned_toys = Toy.objects.exclude(id__in=finch.toys.all().values_list('id'))
     return render(request, 'finches/details.html', {
         'finch': finch,
-        'feeding_form': feeding_form
+        'feeding_form': feeding_form,
+        'toys': unowned_toys
         })
 
 def add_feeding(request, finch_id):
@@ -59,3 +61,7 @@ class ToyUpdate(UpdateView):
 class ToyDelete(DeleteView):
     model = Toy
     success_url = '/toys/'
+
+def assoc_toy(request, finch_id, toy_id):
+    Finch.objects.get(id=finch_id).toys.add(toy_id)
+    return redirect('finches_detail', finch_id=finch_id)
